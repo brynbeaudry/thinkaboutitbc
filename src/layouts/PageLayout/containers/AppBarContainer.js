@@ -15,7 +15,7 @@ import GlobalAppBar from '../components/AppBar'
 const mapDispatchToProps = {
 }
 
-const mapStateToProps = (state = { ... }) => ({
+const mapStateToProps = (state) => ({
     user: state.user,
 })
 

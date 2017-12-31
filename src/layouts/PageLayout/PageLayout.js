@@ -10,10 +10,7 @@ const styles = {
 
 export const PageLayout = ({ children }) => (
   <div className='layout'>
-    <GlobalAppBar
-      onTitleClick={(event) => <Redirect push to='/' />}
-      title={<Link to='/' activeClassName='page-layout__title--active'></Link>}
-      showMenuIconButton={true} />
+    <GlobalAppBar />
     {/*     <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home</IndexLink>
     {' · '}
     <Link to='/counter' activeClassName='page-layout__nav-item--active'>Counter</Link> */}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 import RightNavButtons from './RightNavButtons'
 import FlatButton from 'material-ui/FlatButton'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
@@ -14,7 +15,7 @@ class GlobalAppBar extends Component {
     this.state = {
     }
     this.checkUser = this.checkUser.bind(this)
-    console.log(props)
+    console.log(...props)
   }
 
   checkUser () {
@@ -44,7 +45,8 @@ class GlobalAppBar extends Component {
 }
 
 GlobalAppBar.propTypes = {
-  user : PropTypes.objectOf(PropTypes.string)
+  user : PropTypes.objectOf(PropTypes.string),
+  onTitleClick : PropTypes.func.isRequired,
 }
 
 export default GlobalAppBar
