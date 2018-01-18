@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import FlatButton from 'material-ui/FlatButton'
+import Button from 'material-ui/Button'
 import { Link } from 'react-router'
+import { withStyles } from 'material-ui/styles'
+import PropTypes from 'prop-types'
 
 /* Some buttons :
 Login
@@ -11,12 +13,13 @@ They only show is the auth state is false
 So, the state can be passed in, and buttons shown conditionally
 */
 
-const styles = {
-  navBarRightButton : {
-    verticalAlign : 'middle',
-    color : 'white',
+const styles = theme => ({
+  button: {
+    verticalAlign: 'middle',
+    color: 'white',
+    margin: theme.spacing.unit
   }
-}
+})
 
 class RightNavButtons extends Component {
   constructor (props = null) {
@@ -24,21 +27,24 @@ class RightNavButtons extends Component {
   }
 
   render () {
+    const { classes } = this.props
     return (
       <div>
         <Link to='/login' activeClassName=''>
-          <FlatButton
+          <Button
+            raised
             label='Login'
-            labelPosition='before'
-            style={styles.navBarRightButton}
+            className={classes.button}
+            style={styles.button}
             containerElement='label'
             />
         </Link>
         <Link to='/register' activeClassName=''>
-          <FlatButton
+          <Button
+            raised
             label='Register'
-            labelPosition='before'
-            style={styles.navBarRightButton}
+            className={classes.button}
+            style={styles.button}
             containerElement='label'
             />
         </Link>
@@ -53,4 +59,12 @@ const mapStateToProps = (state = null) => ({
   auth : state.auth
 })
 
-export default connect(mapStateToProps)(RightNavButtons)
+RightNavButtons.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+//composing what is exported
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps),
+)(RightNavButtons)

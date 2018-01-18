@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import RaisedButton from 'material-ui/RaisedButton'
+import Button from 'material-ui/Button'
 import Snackbar from 'material-ui/Snackbar'
 
 /* The Register Form */
@@ -111,40 +111,7 @@ class Login extends Component {
       <Paper
         style={paperStyle}
         zDepth={3}>
-        <ValidatorForm
-          ref='form'
-          onSubmit={this.handleSubmit}
-          instantValidate
-          onError={errors => alert(errors)}
-        >
-          <br />
-          <TextValidator
-            hintText='Email'
-            floatingLabelText='Email'
-            name='email'
-            value={this.state.user.email}
-            validators={['required', 'isEmail']}
-            errorMessages={['Email is required', 'Please enter a valid email']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <TextValidator
-            hintText='Password'
-            floatingLabelText='Password'
-            name='password'
-            value={this.state.user.password}
-            type='password'
-            validators={['required']}
-            errorMessages={['Password is required']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <br />
-          <RaisedButton label='Login' primary style={buttonStyle}
-            disabled={this.state.submitDisabled} type='submit' />
-        </ValidatorForm>
+        {/* Build new form */}
       </Paper>
     )
   }

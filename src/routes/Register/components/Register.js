@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import RaisedButton from 'material-ui/RaisedButton'
+import Button from 'material-ui/Button'
 import Snackbar from 'material-ui/Snackbar'
 
 /* The Register Form */
@@ -116,73 +116,7 @@ class Register extends Component {
       <Paper
         style={paperStyle}
         zDepth={3}>
-        <ValidatorForm
-          ref='form'
-          onSubmit={this.handleSubmit}
-          instantValidate
-          onError={errors => alert(errors)}
-        >
-          <TextValidator
-            hintText='First Name'
-            floatingLabelText='First Name'
-            name='first_name'
-            value={this.state.user.first_name}
-            id='first_name'
-            validators={['required']}
-            errorMessages={['First name is required']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <TextValidator
-            hintText='Last Name'
-            floatingLabelText='Last Name'
-            name='last_name'
-            value={this.state.user.last_name}
-            validators={['required']}
-            errorMessages={['Last name is required']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <TextValidator
-            hintText='Email'
-            floatingLabelText='Email'
-            name='email'
-            value={this.state.user.email}
-            validators={['required', 'isEmail']}
-            errorMessages={['Email is required', 'Please enter a valid email']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <TextValidator
-            hintText='Password'
-            floatingLabelText='Password'
-            name='password'
-            value={this.state.user.password}
-            type='password'
-            validators={['required']}
-            errorMessages={['Password is required']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <TextValidator
-            hintText='Confirm Password'
-            floatingLabelText='Confirm Password'
-            name='password_confirm'
-            value={this.state.password_confirm}
-            type='password'
-            validators={['required', 'isPasswordMatch']}
-            errorMessages={['Please confirm your password', 'Passwords do not match']}
-            onChange={this.handleChange}
-            errorStyle={errorStyle}
-            validatorListener={this.validatorListener}
-          /><br />
-          <RaisedButton label='Register' primary style={buttonStyle}
-            disabled={this.state.submitDisabled} type='submit' />
-        </ValidatorForm>
+        {/* build new form */}
       </Paper>
     )
   }
