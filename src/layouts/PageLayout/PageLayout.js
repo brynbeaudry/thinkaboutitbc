@@ -3,9 +3,17 @@ import { IndexLink, Link, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import './PageLayout.scss'
 import GlobalAppBar from './components/AppBar.js'
+import Grid from 'material-ui/Grid'
 
 const styles = {
-
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    height: 'auto',
+    width: 'auto',
+    padding : '2em',
+  },
 }
 
 export const PageLayout = ({ children }) => (
@@ -15,7 +23,9 @@ export const PageLayout = ({ children }) => (
     {' · '}
     <Link to='/counter' activeClassName='page-layout__nav-item--active'>Counter</Link> */}
     <div className='page-layout__viewport'>
-      {children}
+      <Grid container style={styles.root} justify='center'>
+        {children}
+      </Grid>
     </div>
   </div>
 )

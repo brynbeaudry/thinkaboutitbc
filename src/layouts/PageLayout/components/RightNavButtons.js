@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router'
@@ -60,11 +61,8 @@ const mapStateToProps = (state = null) => ({
 })
 
 RightNavButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-//composing what is exported
-export default compose(
-  withStyles(styles),
-  connect(mapStateToProps),
-)(RightNavButtons)
+}
+
+// composing what is exported
+export default connect(mapStateToProps)(RightNavButtons)
