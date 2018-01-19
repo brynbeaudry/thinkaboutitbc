@@ -1,4 +1,4 @@
-const styles = theme => ({
+const gridStyles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -8,4 +8,4 @@ const styles = theme => ({
     padding : '2em',
   },
 })
-export default styles
+export default gridStyles

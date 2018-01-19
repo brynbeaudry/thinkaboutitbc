@@ -56,9 +56,9 @@ class GlobalAppBar extends Component {
       /> */
       <AppBar position='static'>
         <Toolbar>
-          <IconButton style={styles.menuButton} color='contrast' aria-label='Menu'>
+          {/* <IconButton style={styles.menuButton} color='contrast' aria-label='Menu'>
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography type='title' color='inherit' style={styles.flex}>
             <Link to='/' activeClassName='page-layout__title--active'><img src={logoImg} /></Link>
           </Typography>

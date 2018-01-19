@@ -4,7 +4,7 @@ import Grid from 'material-ui/Grid'
 const TitleBar = (props) => {
   var { message = 'Default' } = props
   return (
-    <Grid item xs={12} sm={10} md={10} lg={8} xl={6}>
+    <Grid item xs={12} sm={10} md={10} lg={10} xl={10}>
       <div>
         <h4 className='title'>
           {message}
