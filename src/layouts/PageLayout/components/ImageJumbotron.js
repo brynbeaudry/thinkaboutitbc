@@ -11,13 +11,19 @@ const styles = theme => ({
     backgroundSize: 'contain'
   },
   card: {
-    width: '100%',
-    height: '828px',
+    maxWidth: '100%',
+    maxHeight: 'auto',
   },
   media: {
     width: '100%',
-    height: '-webkit-fill-available',
+    height : '50rem',
+    backgroundPosition : 'top'
   },
+  type : {
+    color : 'white',
+    textShadow: '2px 2px 8px #000000',
+    marginLeft: '20px'
+  }
 })
 
 const bannerStyle = {
@@ -30,10 +36,17 @@ const ImageJumbotron = (props) => {
   console.log(image)
   return (
     <Grid item xs={12}>
-      {/* <Card className={classes.card}>
-        <CardMedia className={classes.media} image='http://localhost:5000/static/images/bc3_1920.png' title='Contemplative Reptile' />
-      </Card> */}
-      <img style={bannerStyle} src='http://localhost:5000/static/images/bc3_1920.png' />
+        <Card className={classes.card}>
+          <CardMedia className={classes.media} image='http://localhost:5000/static/images/bc3.jpg' title='Contemplative Reptile'>
+            <Typography paragraph className={classes.type} type="display3" color='primary'>
+              Live From Space
+            </Typography>
+            <Typography paragraph className={classes.type} type="display1" color="primary">
+              Mac Miller
+            </Typography>
+          </CardMedia>
+        </Card>
+      {/* <img style={bannerStyle} src='http://localhost:5000/static/images/bc3_1920.png' /> */}
     </Grid>
   )
 }
