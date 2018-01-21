@@ -17,12 +17,17 @@ const styles = theme => ({
   media: {
     width: '100%',
     height : '50rem',
-    backgroundPosition : 'top'
+    backgroundPosition : 'top',
+    position : 'relative'
   },
-  type : {
+  text : {
     color : 'white',
     textShadow: '2px 2px 8px #000000',
-    marginLeft: '20px'
+    marginLeft: '1rem'
+  },
+  subDiv : {
+    position : 'absolute',
+    bottom : 0
   }
 })
 
@@ -31,6 +36,13 @@ const bannerStyle = {
   textAlign: 'center',
 }
 
+const subtexts = [
+  'Rising cost of living',
+  'Empowering our First Nations',
+  'Preserving our natural resources',
+  'Together, we can make it happen'
+]
+
 const ImageJumbotron = (props) => {
   const { classes, image } = props
   console.log(image)
@@ -38,12 +50,16 @@ const ImageJumbotron = (props) => {
     <Grid item xs={12}>
         <Card className={classes.card}>
           <CardMedia className={classes.media} image='http://localhost:5000/static/images/bc3.jpg' title='Contemplative Reptile'>
-            <Typography paragraph className={classes.type} type="display3" color='primary'>
-              Live From Space
+            <Typography paragraph className={classes.text} type="display4" color='primary'>
+              Think about IT
             </Typography>
-            <Typography paragraph className={classes.type} type="display1" color="primary">
-              Mac Miller
-            </Typography>
+            <div className={classes.subDiv}>
+              {subtexts.map(x =>
+                <Typography paragraph className={classes.text} type="display2" color="primary">
+                  {x}
+                </Typography>
+              )}
+            </div>
           </CardMedia>
         </Card>
       {/* <img style={bannerStyle} src='http://localhost:5000/static/images/bc3_1920.png' /> */}
