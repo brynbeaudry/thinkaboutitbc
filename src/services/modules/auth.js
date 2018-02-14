@@ -11,10 +11,18 @@ export const REGISTER_USER = 'REGISTER_USER'
 export const REGISTER_USER_PENDING = 'REGISTER_USER_PENDING'
 export const REGISTER_USER_REJECTED = 'REGISTER_USER_REJECTED'
 export const REGISTER_USER_FULFILLED = 'REGISTER_USER_FULFILLED'
-export const LOGIN_USER = 'LOGIN_USER'
-export const LOGIN_USER_PENDING = 'LOGIN_USER_PENDING'
-export const LOGIN_USER_REJECTED = 'LOGIN_USER_REJECTED'
-export const LOGIN_USER_FULFILLED = 'LOGIN_USER_FULFILLED'
+export const LOGIN_USER_EMAIL = 'LOGIN_USER_EMAIL'
+export const LOGIN_USER_EMAIL_PENDING = 'LOGIN_USER_EMAIL_PENDING'
+export const LOGIN_USER_EMAIL_REJECTED = 'LOGIN_USER_EMAIL_REJECTED'
+export const LOGIN_USER_EMAIL_FULFILLED = 'LOGIN_USER_EMAIL_FULFILLED'
+export const LOGIN_USER_FACEBOOK = 'LOGIN_USER'
+export const LOGIN_USER_FACEBOOK_PENDING = 'LOGIN_USER_FACEBOOK_PENDING'
+export const LOGIN_USER_FACEBOOK_REJECTED = 'LOGIN_USER_FACEBOOK_REJECTED'
+export const LOGIN_USER_FACEBOOK_FULFILLED = 'LOGIN_USER_FACEBOOK_FULFILLED'
+export const LOGIN_USER_GOOGLE = 'LOGIN_USER_GOOGLE'
+export const LOGIN_USER_GOOGLE_PENDING = 'LOGIN_USER_GOOGLE_PENDING'
+export const LOGIN_USER_GOOGLE_REJECTED = 'LOGIN_USER_GOOGLE_REJECTED'
+export const LOGIN_USER_GOOGLE_FULFILLED = 'LOGIN_USER_GOOGLE_FULFILLED'
 
 // ------------------------------------
 // Actions
@@ -22,7 +30,7 @@ export const LOGIN_USER_FULFILLED = 'LOGIN_USER_FULFILLED'
 /* User object should be structured to include all relevant information
 payload should be an axios.post(register roue, user)
 */
-export function register (user = null) {
+export function register (user = {}) {
   return {
     type    : REGISTER_USER,
     payload : {
@@ -31,13 +39,30 @@ export function register (user = null) {
   }
 }
 
-export function login (user = null) {
+export function loginWithEmail (email, password) {
   return {
-    type    : LOGIN_USER,
+    type    : LOGIN_USER_EMAIL,
     payload : {
-      promise: AuthService.login(user)
+      promise: AuthService.loginWithEmail(email, password)
+    }
+  }
+}
+
+export function loginWithFacebook () {
+  return {
+    type    : LOGIN_USER_FACEBOOK,
+    payload : {
+      promise: AuthService.loginWithFacebook()
     },
-    meta : user.email
+  }
+}
+
+export function loginWithGoogle () {
+  return {
+    type    : LOGIN_USER_GOOGLE,
+    payload : {
+      promise: AuthService.loginWithGoogle(user)
+    },
   }
 }
 
@@ -60,7 +85,7 @@ export const doubleAsync = () => {
 }
 */
 export const actions = {
-  register, login
+  register, loginWithEmail, loginWithGoogle, loginWithFacebook
 }
 
 // ------------------------------------
@@ -69,55 +94,57 @@ export const actions = {
 const ACTION_HANDLERS = {
   [REGISTER_USER_PENDING]  : (state, action) => {
     return ({ ...state,
-      token : null,
-      expires_at : null,
-      user : null,
-      error: null,
+      error: undefined,
       fetching : true,
     })
   },
   [REGISTER_USER_REJECTED] : (state, action) => {
     return ({ ...state,
-      token : null,
-      expires_at : null,
-      user : null,
-      error: action.payload.error,
+      error: action.payload,
       fetching : false,
     })
   },
   [REGISTER_USER_FULFILLED] : (state, action) => {
     return ({ ...state,
-      token: action.payload.auth.access_token,
-      expires_at: action.payload.auth.expires_at,
-      user : action.payload.user,
-      error: null,
+      error: undefined,
       fetching : false,
     })
   },
-  [LOGIN_USER_PENDING]  : (state, action) => {
+  [LOGIN_USER_EMAIL_PENDING]  : (state, action) => {
     return ({ ...state,
-      token : null,
-      expires_at : null,
-      user : null,
-      error: null,
+      error: undefined,
       fetching : true,
     })
   },
-  [LOGIN_USER_REJECTED] : (state, action) => {
+  [LOGIN_USER_EMAIL_REJECTED] : (state, action) => {
     return ({ ...state,
-      token : null,
-      expires_at : null,
-      user : null,
-      error: action.payload.error,
+      error: action.payload,
       fetching : false,
     })
   },
-  [LOGIN_USER_FULFILLED] : (state, action) => {
+  [LOGIN_USER_EMAIL_FULFILLED] : (state, action) => {
     return ({ ...state,
-      token: action.payload.auth.access_token,
-      expires_at: action.payload.auth.expires_at,
-      user : action.payload.user,
-      error: null,
+      auth: { isLoggedIn : true, ...action.payload },
+      error: undefined,
+      fetching : false,
+    })
+  },
+  [LOGIN_USER_FACEBOOK_PENDING]  : (state, action) => {
+    return ({ ...state,
+      error: undefined,
+      fetching : true,
+    })
+  },
+  [LOGIN_USER_FACEBOOK_REJECTED] : (state, action) => {
+    return ({ ...state,
+      error: action.payload,
+      fetching : false,
+    })
+  },
+  [LOGIN_USER_FACEBOOK_FULFILLED] : (state, action) => {
+    return ({ ...state,
+      auth: { isLoggedIn : true, ...action.payload },
+      error: undefined,
       fetching : false,
     })
   },
