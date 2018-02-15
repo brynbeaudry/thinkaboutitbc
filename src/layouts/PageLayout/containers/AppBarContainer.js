@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
     wiring in the actions and state necessary to render a presentational
     component - in this case, the counter:   */
 
-import GlobalAppBar from '../components/AppBar'
+import GlobalAppBar from '../components/AppBarComponent'
 
 /*  Object of action creators (can also be function that returns object).
     Keys will be passed as props to presentational components. Here we are
@@ -16,7 +16,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user,
+    auth: state.auth,
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:

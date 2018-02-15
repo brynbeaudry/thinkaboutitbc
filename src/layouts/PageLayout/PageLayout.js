@@ -2,7 +2,7 @@ import React from 'react'
 import { IndexLink, Link, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import './PageLayout.scss'
-import GlobalAppBar from './components/AppBar.js'
+import GlobalAppBar from './components/AppBarComponent.js'
 import Grid from 'material-ui/Grid'
 
 const styles = {

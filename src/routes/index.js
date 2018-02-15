@@ -2,7 +2,6 @@
 import CoreLayout from '../layouts/PageLayout/PageLayout'
 import WelcomeRoute from './Welcome'
 import CounterRoute from './Counter'
-import RegisterRoute from './Register'
 import LoginRoute from './Login'
 import HomeRoute from './Home'
 
@@ -44,7 +43,6 @@ export const createRoutes = (store) => {
         onEnter: requirePublic,
         childRoutes: [
           CounterRoute(store),
-          RegisterRoute(store),
           LoginRoute(store),
         ]
       },
