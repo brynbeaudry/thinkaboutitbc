@@ -9,7 +9,6 @@ import HomeRoute from './Home'
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => {
-  
   const requireLogin = (nextState, replace, cb) => {
     const state = { ...store.getState() }
     if (state.auth === undefined) {

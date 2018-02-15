@@ -1,31 +1,75 @@
 import request from '../request'
+import querystring from 'query-string'
 
-function register (data) {
-  console.log('in register: ', data)
+// get facebook from somewhere
+
+function getFacebookToken () {
+  // something
+}
+
+function register (user) {
+  let username = user.username !== undefined ? user.username : `${user.email.split('@')[0]}`
+  console.log('in register: ', `${user} \n Username ${username}`)
   return request({
-    method : 'post',
+    headers: { 'Content-Type': 'application/json' },
+    method: 'post',
     url: '/register',
-    data : { user: data },
+    data: { email: user.email, password: user.password, username: username },
   })
 }
 
-function login (user) {
+function loginWithEmail (email, password) {
   return request({
-    url: '/login',
-    method : 'POST',
-    data : { email: user.email, password: user.password }
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    url: '/connect/token',
+    method: 'POST',
+    data: querystring.stringify({
+      response_type: 'code',
+      grant_type: 'password',
+      username: email,
+      password: password
+    })
+  })
+}
+
+async function loginWithFacebook () {
+  const facebook_access_token = getFacebookToken()
+  return request({
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    url: '/connect/token',
+    method: 'POST',
+    data: querystring.stringify({
+      response_type: 'code',
+      grant_type: 'urn:ietf:params:oauth:grant-type:facebook_access_token',
+      scope: 'openid profile email',
+      assertion: facebook_access_token,
+    })
+  })
+}
+
+function loginWithGoogle (google_identity_token) {
+  return request({
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    url: '/connect/token',
+    method: 'POST',
+    data: querystring.stringify({
+      response_type: 'code',
+      grant_type: 'urn:ietf:params:oauth:grant-type:google_identity_token',
+      scope: 'openid profile email',
+      assertion: google_identity_token,
+    })
   })
 }
 
 function logout () {
   return request({
     url: '/logout',
-    method : 'POST'
+    method: 'POST'
   })
 }
 
 const AuthService = {
-  register, login, logout,
+  register, loginWithEmail, loginWithFacebook, loginWithGoogle, logout,
 }
 
 export default AuthService

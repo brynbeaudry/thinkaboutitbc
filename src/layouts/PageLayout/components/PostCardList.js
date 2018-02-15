@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper'
 import { withStyles } from 'material-ui/styles'
 import PostCard from './PostCard'
 import { connect } from 'react-redux'
+import { PostsGet } from '../../../services/modules/posts'
+import { injectReducer } from '../../../store/reducers'
 
 const styles = (theme) => ({
   root: {
@@ -19,31 +21,57 @@ const styles = (theme) => ({
   },
 })
 
-const PostCardList = (props) => {
-  return (
-    <Grid item xs={12} sm={10} md={10} lg={8} xl={6}>
-      <Grid container style={styles.root} justify='center' spacing={0}>
-        {[0, 1, 2, 3].map(value => (
-          <Grid key={value} item xs={11}>
-            {/* IN container 1 */}
-            <PostCard></PostCard>
-          </Grid>
-        ))}
+class PostCardList extends React.Component {
+
+  constructor (props) {
+    super(props)
+    console.log(JSON.stringify(props))
+    
+    // function provided by the starter kit
+
+    const { posts, fetching, error } = props
+    this.state = {
+      posts : posts || ['Nothing'],
+      fetching : fetching || false,
+      error : error || {}
+    }
+  }
+
+  componentDidMount () {
+    this.props.PostsGet()
+  }
+
+  render () {
+    return (
+      <Grid item xs={12} sm={10} md={10} lg={8} xl={6}>
+        <Grid container style={styles.root} justify='center' spacing={0}>
+          {[0, 1, 2, 3].map(value => (
+            <Grid key={value} item xs={11}>
+              {/* IN container 1 */}
+              <PostCard post={this.posts} />
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
-    </Grid>
-  )
+    )
+  }
 }
 
 const mapDispatchToProps = {
-  loginWithEmail
+  PostsGet : PostsGet
 }
-
-
 const mapStateToProps = (state) => ({
+  posts : state.posts,
+  error : state.error,
+  fetching : state.fetching
 })
 
 PostCardList.propTypes = {
   // children: PropTypes.node,
+  posts: PropTypes.arrayOf(PropTypes.object),
+  error : PropTypes.object,
+  fetching : PropTypes.bool,
+  PostsGet : PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostCardList)

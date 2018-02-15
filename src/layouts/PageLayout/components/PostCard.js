@@ -48,7 +48,8 @@ class PostCard extends React.Component {
   };
 
   render () {
-    const { classes } = this.props
+    const { classes, post } = this.props
+    console.log(post)
 
     return (
       <div>
@@ -133,6 +134,7 @@ class PostCard extends React.Component {
 
 PostCard.propTypes = {
   children: PropTypes.node,
+  post: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
