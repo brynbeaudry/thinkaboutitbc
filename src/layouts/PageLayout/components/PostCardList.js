@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import { withStyles } from 'material-ui/styles'
 import PostCard from './PostCard'
+import { connect } from 'react-redux'
 
 const styles = (theme) => ({
   root: {
@@ -33,8 +34,16 @@ const PostCardList = (props) => {
   )
 }
 
+const mapDispatchToProps = {
+  loginWithEmail
+}
+
+
+const mapStateToProps = (state) => ({
+})
+
 PostCardList.propTypes = {
   // children: PropTypes.node,
 }
 
-export default PostCardList
+export default connect(mapStateToProps, mapDispatchToProps)(PostCardList)
