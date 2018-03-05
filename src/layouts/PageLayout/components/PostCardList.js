@@ -22,37 +22,34 @@ const styles = (theme) => ({
 })
 
 class PostCardList extends React.Component {
-
   constructor (props) {
     super(props)
     console.log(JSON.stringify(props))
-    
+
     // function provided by the starter kit
 
     this.state = {
-      posts : props.posts || ['Nothing'],
+      posts : props.posts.posts || [],
       fetching : props.fetching || false,
-      error : props.error || {}
+      error : props.error || []
     }
     this.props.PostsGet()
   }
 
   componentDidMount () {
-    //gets the posts as soon as the component maps.
-    //this.props.PostsGet()
-    console.log("did mount")
+    // gets the posts as soon as the component maps.
+    // this.props.PostsGet()
+    console.log('did mount')
   }
 
   componentWillMount () {
-    console.log("will mount")
+    console.log('will mount')
   }
 
   render () {
-    console.log(`props right now are ${JSON.stringify(this.props)}`)
-    let posts = this.props.posts.posts || ['Nothing']
-    console.log("render")
+    let posts = this.props.posts.posts || []
+    console.log('render')
     console.log(`posts right now are ${JSON.stringify(posts)}`)
-
 
     return (
       <Grid item xs={12} sm={10} md={10} lg={8} xl={6}>

@@ -54,8 +54,8 @@ const ImageJumbotron = (props) => {
               Think about IT
             </Typography>
             <div className={classes.subDiv}>
-              {subtexts.map(x =>
-                <Typography paragraph className={classes.text} type="display2" color="primary">
+              {subtexts.map((x, i) =>
+                <Typography key={i} paragraph className={classes.text} type="display2" color="primary">
                   {x}
                 </Typography>
               )}
