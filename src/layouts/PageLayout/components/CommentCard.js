@@ -14,9 +14,6 @@ import FavoriteIcon from 'material-ui-icons/Favorite'
 import ShareIcon from 'material-ui-icons/Share'
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
 import MoreVertIcon from 'material-ui-icons/MoreVert'
-import CommentCard from './CommentCard'
-//let base64 = require('base-64')
-import base64 from 'base-64'
 
 const styles = theme => ({
   card: {
@@ -43,7 +40,7 @@ const styles = theme => ({
   },
 })
 
-class PostCard extends React.Component {
+class CommentCard extends React.Component {
   state = { expanded: false };
 
   handleExpandClick = () => {
@@ -51,8 +48,8 @@ class PostCard extends React.Component {
   };
 
   render () {
-    const { classes, post } = this.props
-    console.log(post)
+    const { classes, comment } = this.props
+    console.log(comment)
 
     return (
       <div>
@@ -60,7 +57,7 @@ class PostCard extends React.Component {
           <CardHeader
             avatar={
               <Avatar aria-label='Recipe' className={classes.avatar}>
-                P
+                C
               </Avatar>
             }
             action={
@@ -68,17 +65,17 @@ class PostCard extends React.Component {
                 <MoreVertIcon />
               </IconButton>
             }
-            title={post.title}
-            subheader={post.createdAt}
+            title={comment.title}
+            subheader={comment.createdAt}
           />
           <CardMedia
             className={classes.media}
-            image={base64.decode(post.image.thumbnailImage)}
+            image={comment.image.thumbnailImage || ''}
             title='Contemplative Reptile'
           />
           <CardContent>
             <Typography component='p'>
-              {post.text}
+              {comment.text}
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
@@ -99,21 +96,16 @@ class PostCard extends React.Component {
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
-          <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
-            {post.comments.map((comment, i) => (
-              <CommentCard key={comment.id} comment={comment} />
-            ))}
-          </Collapse>
         </Card>
       </div>
     )
   }
 }
 
-PostCard.propTypes = {
+CommentCard.propTypes = {
   children: PropTypes.node,
-  post: PropTypes.object.isRequired,
+  comment: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(PostCard)
+export default withStyles(styles)(CommentCard)
