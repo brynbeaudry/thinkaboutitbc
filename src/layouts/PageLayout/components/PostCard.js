@@ -57,7 +57,7 @@ class PostCard extends React.Component {
           <CardHeader
             avatar={
               <Avatar aria-label='Recipe' className={classes.avatar}>
-                R
+                P
               </Avatar>
             }
             action={

@@ -29,26 +29,38 @@ class PostCardList extends React.Component {
     
     // function provided by the starter kit
 
-    const { posts, fetching, error } = props
     this.state = {
-      posts : posts || ['Nothing'],
-      fetching : fetching || false,
-      error : error || {}
+      posts : props.posts || ['Nothing'],
+      fetching : props.fetching || false,
+      error : props.error || {}
     }
-  }
-
-  componentDidMount () {
     this.props.PostsGet()
   }
 
+  componentDidMount () {
+    //gets the posts as soon as the component maps.
+    //this.props.PostsGet()
+    console.log("did mount")
+  }
+
+  componentWillMount () {
+    console.log("will mount")
+  }
+
   render () {
+    console.log(`props right now are ${JSON.stringify(this.props)}`)
+    let posts = this.props.posts.posts || ['Nothing']
+    console.log("render")
+    console.log(`posts right now are ${JSON.stringify(posts)}`)
+
+
     return (
       <Grid item xs={12} sm={10} md={10} lg={8} xl={6}>
         <Grid container style={styles.root} justify='center' spacing={0}>
-          {[0, 1, 2, 3].map(value => (
-            <Grid key={value} item xs={11}>
+          {posts.map((post) => (
+            <Grid key={post.id} item xs={11}>
               {/* IN container 1 */}
-              <PostCard post={this.posts} />
+              <PostCard post={post} />
             </Grid>
           ))}
         </Grid>
@@ -68,7 +80,7 @@ const mapStateToProps = (state) => ({
 
 PostCardList.propTypes = {
   // children: PropTypes.node,
-  posts: PropTypes.arrayOf(PropTypes.object),
+  posts: PropTypes.object,
   error : PropTypes.object,
   fetching : PropTypes.bool,
   PostsGet : PropTypes.func.isRequired

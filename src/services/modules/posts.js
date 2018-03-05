@@ -167,14 +167,14 @@ const ACTION_HANDLERS = {
     return ({ ...state,
       error: undefined,
       fetching : true,
-      posts : null
+      posts : undefined
     })
   },
   [GET_POSTS_REJECTED] : (state, action) => {
     return ({ ...state,
       error: action.payload,
       fetching : false,
-      posts : null
+      posts : undefined
     })
   },
   [GET_POSTS_FULFILLED] : (state, action) => {

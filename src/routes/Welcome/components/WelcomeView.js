@@ -32,6 +32,7 @@ export class WelcomeView extends Component {
       image: wideImage
     }
   }
+
   render () {
     const { classes } = this.props
     const { image } = this.state
