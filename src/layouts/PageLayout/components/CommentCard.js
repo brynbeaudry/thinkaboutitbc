@@ -50,6 +50,14 @@ class CommentCard extends React.Component {
   render () {
     const { classes, comment } = this.props
     console.log(comment)
+    let cardMedia = <br />
+    if(comment.image){
+      cardMedia = <CardMedia
+        className={classes.media}
+        image={comment.image.fullImage}
+        title='Contemplative Reptile'
+      />
+    }
 
     return (
       <div>
@@ -67,11 +75,6 @@ class CommentCard extends React.Component {
             }
             title={comment.title}
             subheader={comment.createdAt}
-          />
-          <CardMedia
-            className={classes.media}
-            image={comment.image.thumbnailImage || ''}
-            title='Contemplative Reptile'
           />
           <CardContent>
             <Typography component='p'>

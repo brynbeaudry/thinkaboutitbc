@@ -69,11 +69,11 @@ class PostCard extends React.Component {
               </IconButton>
             }
             title={post.title}
-            subheader={post.createdAt}
+            subheader={`${post.createdAt} by ${post.createdBy.userName}`}
           />
           <CardMedia
             className={classes.media}
-            image={base64.decode(post.image.thumbnailImage)}
+            image={base64.decode(post.image.fullImage)}
             title='Contemplative Reptile'
           />
           <CardContent>
