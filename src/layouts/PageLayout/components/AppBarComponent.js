@@ -62,7 +62,7 @@ class GlobalAppBar extends Component {
           <Typography type='title' color='inherit' style={styles.flex}>
             <Link to='/' activeClassName='page-layout__title--active'><img src={logoImg} /></Link>
           </Typography>
-          <Button color='contrast'>Login</Button>
+          <RightNavButtons />
         </Toolbar>
       </AppBar>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { compose } from 'redux'
+import { compose } from 'recompose';
 import { connect } from 'react-redux'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router'
@@ -29,26 +29,18 @@ class RightNavButtons extends Component {
 
   render () {
     const { classes } = this.props
+    const linkToLogin = props => <Link to='/login' activeClassName='' {...props} />
+    const linkToRegister = props => <Link to='/register' activeClassName='' {...props} />
     return (
       <div>
-        <Link to='/login' activeClassName=''>
-          <Button
-            raised
-            label='Login'
-            className={classes.button}
-            style={styles.button}
-            containerElement='label'
-            />
-        </Link>
-        <Link to='/register' activeClassName=''>
-          <Button
-            raised
-            label='Register'
-            className={classes.button}
-            style={styles.button}
-            containerElement='label'
-            />
-        </Link>
+        <Button
+          component={linkToLogin}
+          className={classes.button}
+        >Login</Button>
+        <Button
+          component={linkToRegister}
+          className={classes.button}
+        >Register</Button>
       </div>
     )
   }
@@ -61,8 +53,8 @@ const mapStateToProps = (state = null) => ({
 })
 
 RightNavButtons.propTypes = {
-
+  classes: PropTypes.object.isRequired,
 }
 
 // composing what is exported
-export default connect(mapStateToProps)(RightNavButtons)
+export default compose(withStyles(styles), connect(mapStateToProps))(RightNavButtons)

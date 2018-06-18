@@ -57,7 +57,7 @@ class Login extends Component {
     this.validatorListener = this.validatorListener.bind(this)
     this.checkUserData = this.checkUserData.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.login = props.login.bind(this)
+    this.login = props.loginWithEmail.bind(this)
     console.log('Props: ', props)
     console.log('this : ', this)
   }
@@ -102,7 +102,8 @@ class Login extends Component {
     if (!this.state.submitDisabled) {
       const { user } = this.state
       console.log(user)
-      this.props.login(user)
+      const { email, password } = user
+      this.props.loginWithEmail(email, password)
     }
   }
 
@@ -117,7 +118,7 @@ class Login extends Component {
   }
 }
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
+  loginWithEmail: PropTypes.func.isRequired,
   // errors : PropTypes.arrayOf(PropTypes.string)
 }
 
