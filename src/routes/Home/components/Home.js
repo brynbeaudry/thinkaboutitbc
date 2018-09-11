@@ -1,8 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Paper from 'material-ui/Paper'
-import Button from 'material-ui/Button'
-import Snackbar from 'material-ui/Snackbar'
 
 /* The Register Form */
 const style = {

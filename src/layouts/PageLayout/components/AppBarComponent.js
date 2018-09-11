@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import AppBar from 'material-ui/AppBar'
+import AppBar from '@material-ui/core/AppBar'
 import RightNavButtons from './RightNavButtons'
 import { IndexLink, Link, Redirect } from 'react-router'
 import logoImg from '../assets/logowhiteoutlinesmallersq.png'
 import PropTypes from 'prop-types'
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
-import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
-import MenuIcon from 'material-ui-icons/Menu'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const styles = {
   root: {

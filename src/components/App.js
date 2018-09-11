@@ -2,7 +2,7 @@ import React from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 class App extends React.Component {
   static propTypes = {

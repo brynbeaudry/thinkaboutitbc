@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import './WelcomeView.scss'
 import TitleBar from '../../../layouts/PageLayout/components/TitleBar'
 import PostCardList from '../../../layouts/PageLayout/components/PostCardList'
-import Paper from 'material-ui/Paper'
-import { withStyles } from 'material-ui/styles'
-import Grid from 'material-ui/Grid'
+import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 import ImageJumbotron from '../../../layouts/PageLayout/components/ImageJumbotron'
 
 const styles = theme => ({

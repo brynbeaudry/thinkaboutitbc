@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { compose } from 'recompose';
+import { compose } from 'recompose'
 import { connect } from 'react-redux'
-import Button from 'material-ui/Button'
+import Button from '@material-ui/core/Button'
 import { Link } from 'react-router'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 
 /* Some buttons :

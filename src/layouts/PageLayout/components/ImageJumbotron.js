@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-import Grid from 'material-ui/Grid'
+import { withStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
@@ -48,14 +48,14 @@ const ImageJumbotron = (props) => {
   console.log(image)
   return (
     <Grid item xs={12}>
-        <Card className={classes.card}>
+      <Card className={classes.card}>
           <CardMedia className={classes.media} image='http://localhost:5000/static/images/bc3.jpg' title='Contemplative Reptile'>
-            <Typography paragraph className={classes.text} type="display4" color='primary'>
+            <Typography paragraph className={classes.text} type='display4' color='primary'>
               Think about IT
             </Typography>
             <div className={classes.subDiv}>
               {subtexts.map((x, i) =>
-                <Typography key={i} paragraph className={classes.text} type="display2" color="primary">
+                <Typography key={i} paragraph className={classes.text} type='display2' color='primary'>
                   {x}
                 </Typography>
               )}

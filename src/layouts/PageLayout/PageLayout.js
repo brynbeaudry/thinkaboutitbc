@@ -3,7 +3,7 @@ import { IndexLink, Link, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import './PageLayout.scss'
 import GlobalAppBar from './components/AppBarComponent.js'
-import Grid from 'material-ui/Grid'
+import Grid from '@material-ui/core/Grid'
 
 const styles = {
   root: {
