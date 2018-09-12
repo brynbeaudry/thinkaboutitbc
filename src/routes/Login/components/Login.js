@@ -77,18 +77,10 @@ class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: {
-        email : undefined,
-        password : undefined,
-      },
-      isAllFilled : false,
-      submitDisabled : true,
+      email : undefined,
+      password : undefined,
+      correctPassword : false,
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.validatorListener = this.validatorListener.bind(this)
-    this.checkUserData = this.checkUserData.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.loginWithEmail = props.loginWithEmail.bind(this)
     console.log('Props: ', props)
     console.log('this : ', this)
   }
@@ -100,35 +92,15 @@ class Login extends Component {
     /* Also need password length rule */
   }
 
-  handleChange (event) {
-    const { user } = this.state
-    if (event.target.name !== 'password_confirm') {
-      user[event.target.name] = event.target.value
-      this.setState({ user, isAllFilled : this.checkUserData(user) })
-    } else {
-      this.setState({ password_confirm : event.target.value, isAllFilled : this.checkUserData(user) })
-    }
-  }
+  /* You should take a look at the cabcheap logic for validating and submitting the form.
+  Login delegates the responsibility of the login actions to the buttons themselves,
+  passing the form Data to the email login button.
+  Register is more conventional, in that it has good validation logic in its view,
+  and not in the button. This is the 'handle_submit' approach. 
+  I suggest looking over them and thinking about how this responsibility ought
+  to be delegated. These approaches can be completely copied from cabcheap, or improved. */
 
-  checkUserData (user) {
-    for (var key in user) {
-      if (user.hasOwnProperty(key)) {
-        if (user[key] === undefined || user[key] === null || user[key] === '') { return false }
-      }
-    }
-    return true
-  }
-
-  validatorListener (result) {
-    // console.log('is Valid', result, 'isAllFilled', this.state.isAllFilled)
-    if (result && this.state.isAllFilled) {
-      this.setState({ submitDisabled: false })
-    } else {
-      this.setState({ submitDisabled: true })
-    }
-  }
-
-  handleSubmit (e) {
+  /* handleSubmit (e) {
     e.preventDefault()
     if (!this.state.submitDisabled) {
       const { user } = this.state
@@ -136,7 +108,7 @@ class Login extends Component {
       const { email, password } = user
       this.props.loginWithEmail(email, password)
     }
-  }
+  } */
 
   render () {
     const { classes } = this.props
@@ -155,7 +127,7 @@ class Login extends Component {
                 label='Email'
                 className={classes.textField}
                 value={this.state.name}
-                onChange={this.handleChange('name')}
+                /* onChange={this.handleChange('name')} */
                 margin='normal'
               />
               <TextField
@@ -163,7 +135,7 @@ class Login extends Component {
                 label='Email'
                 className={classes.textField}
                 value={this.state.name}
-                onChange={this.handleChange('name')}
+                /* onChange={this.handleChange('name')} */
                 margin='normal'
               />
 
