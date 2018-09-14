@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import GooglePlusIcon from '../../../components/common/GooglePlusIcon'
 import FacebookIcon from '../../../components/common/FacebookIcon'
 import EmailIcon from '@material-ui/icons/Email'
+import TitleBar from '../../../layouts/PageLayout/components/TitleBar'
 
 /* The Register Form */
 /*
@@ -44,13 +45,14 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    width: 300,
   },
   menu: {
     width: 200,
   },
   button: {
     margin: theme.spacing.unit,
+    width: 300,
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
@@ -113,51 +115,58 @@ class Login extends Component {
   render () {
     const { classes } = this.props
     return (
-      <Paper
-        style={paperStyle}
-        zDepth={3}>
+      <Grid container justify='center'>
+        <TitleBar message='Login' />
         {/* Build new form */}
-        <Grid item xs={12} sm={10} md={10} lg={8} xl={6}>
+        <Grid item xs={12} sm={9} md={5} lg={5} xl={5}>
           <Grid container style={styles.root} justify='center' spacing={0}>
             <Grid item xs={11}>
-              {/* Paper with text boxes inside it, email, password,
-              then social login buttons */}
-              <TextField
-                id='email'
-                label='Email'
-                className={classes.textField}
-                value={this.state.name}
-                /* onChange={this.handleChange('name')} */
-                margin='normal'
-              />
-              <TextField
-                id='email'
-                label='Email'
-                className={classes.textField}
-                value={this.state.name}
-                /* onChange={this.handleChange('name')} */
-                margin='normal'
-              />
+              <Paper
+                style={paperStyle}
+                zDepth={3}>
+                {/* Paper with text boxes inside it, email, password,
+                then social login buttons */}
+                <TextField
+                  id='email'
+                  label='Email'
+                  className={classes.textField}
+                  value={this.state.name}
+                  /* onChange={this.handleChange('name')} */
+                  margin='normal'
+                />
+                <br />
+                <TextField
+                  id='password'
+                  label='Password'
+                  className={classes.textField}
+                  value={this.state.password}
+                  /* onChange={this.handleChange('name')} */
+                  margin='normal'
+                />
+                <br />
 
-              {/* Add in the buttons from cabcheap native app directly
-              I Believe there is also a button for email */}
-              <Button variant='contained' disabled color='secondary' className={classes.button}>
-                <EmailIcon className={classes.leftIcon} />
-                Talk
-              </Button>
-              <Button variant='contained' disabled color='secondary' className={classes.button}>
-                <FacebookIcon className={classes.leftIcon} />
-                Talk
-              </Button>
-              <Button variant='contained' disabled color='secondary' className={classes.button}>
-                <GooglePlusIcon className={classes.leftIcon} />
-                Talk
-              </Button>
-
+                {/* Add in the buttons from cabcheap native app directly
+                I Believe there is also a button for email */}
+                <Button variant='contained' color='green' className={classes.button}>
+                  <EmailIcon className={classes.leftIcon} style={{ color: 'green' }} />
+                  Login with Email
+                </Button>
+                <br />
+                <Button variant='contained' color='blue' className={classes.button}>
+                  <FacebookIcon className={classes.leftIcon} style={{ color: 'blue' }} />
+                  Login with Facebook
+                </Button>
+                <br />
+                <Button variant='contained' color='red' className={classes.button}>
+                  <GooglePlusIcon className={classes.leftIcon} style={{ color: 'red' }} />
+                  Login with Google +
+                </Button>
+                <br />
+              </Paper>
             </Grid>
           </Grid>
         </Grid>
-      </Paper>
+      </Grid>
     )
   }
 }
