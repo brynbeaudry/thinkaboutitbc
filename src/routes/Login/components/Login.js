@@ -9,6 +9,7 @@ import GooglePlusIcon from '../../../components/common/GooglePlusIcon'
 import FacebookIcon from '../../../components/common/FacebookIcon'
 import EmailIcon from '@material-ui/icons/Email'
 import TitleBar from '../../../layouts/PageLayout/components/TitleBar'
+import { compose } from 'recompose'
 
 /* The Register Form */
 /*
@@ -79,8 +80,8 @@ class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      email : undefined,
-      password : undefined,
+      email : '',
+      password : '',
       correctPassword : false,
     }
     console.log('Props: ', props)
@@ -94,11 +95,21 @@ class Login extends Component {
     /* Also need password length rule */
   }
 
+  handleLoginButtonPress () {
+    //
+
+  }
+
+  handleTextBoxChange = (event) => {
+    const { name, value } = event.target
+    this.setState({ [name] : value })
+  }
+
   /* You should take a look at the cabcheap logic for validating and submitting the form.
   Login delegates the responsibility of the login actions to the buttons themselves,
   passing the form Data to the email login button.
   Register is more conventional, in that it has good validation logic in its view,
-  and not in the button. This is the 'handle_submit' approach. 
+  and not in the button. This is the 'handle_submit' approach.
   I suggest looking over them and thinking about how this responsibility ought
   to be delegated. These approaches can be completely copied from cabcheap, or improved. */
 
@@ -131,16 +142,18 @@ class Login extends Component {
                   label='Email'
                   className={classes.textField}
                   value={this.state.name}
-                  /* onChange={this.handleChange('name')} */
+                  name='email'
+                  onChange={this.handleTextBoxChange}
                   margin='normal'
                 />
                 <br />
                 <TextField
                   id='password'
                   label='Password'
+                  name='password'
                   className={classes.textField}
                   value={this.state.password}
-                  /* onChange={this.handleChange('name')} */
+                  onChange={this.handleTextBoxChange} 
                   margin='normal'
                 />
                 <br />
