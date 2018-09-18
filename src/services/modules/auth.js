@@ -100,7 +100,7 @@ const ACTION_HANDLERS = {
   },
   [REGISTER_USER_REJECTED] : (state, action) => {
     return ({ ...state,
-      error: action.payload,
+      error: action.payload.errors[0],
       fetching : false,
     })
   },
@@ -114,17 +114,20 @@ const ACTION_HANDLERS = {
     return ({ ...state,
       error: undefined,
       fetching : true,
+      isLoggedIn: false,
     })
   },
   [LOGIN_USER_EMAIL_REJECTED] : (state, action) => {
     return ({ ...state,
-      error: action.payload,
+      error: action.payload.errors[0],
       fetching : false,
+      isLoggedIn: false,
     })
   },
   [LOGIN_USER_EMAIL_FULFILLED] : (state, action) => {
     return ({ ...state,
-      auth: { isLoggedIn : true, ...action.payload },
+      isLoggedIn : true,
+      ...action.payload,
       error: undefined,
       fetching : false,
     })
@@ -133,21 +136,25 @@ const ACTION_HANDLERS = {
     return ({ ...state,
       error: undefined,
       fetching : true,
+      isLoggedIn: false,
     })
   },
   [LOGIN_USER_FACEBOOK_REJECTED] : (state, action) => {
     return ({ ...state,
       error: action.payload,
       fetching : false,
+      isLoggedIn: false,
     })
   },
   [LOGIN_USER_FACEBOOK_FULFILLED] : (state, action) => {
     return ({ ...state,
-      auth: { isLoggedIn : true, ...action.payload },
+      isLoggedIn : true, 
+      ...action.payload,
       error: undefined,
       fetching : false,
     })
   },
+  // TODO: need to add logout, and google
 }
 
 // ------------------------------------

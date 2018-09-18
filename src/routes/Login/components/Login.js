@@ -86,6 +86,7 @@ class Login extends Component {
     }
     console.log('Props: ', props)
     console.log('this : ', this)
+    this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
   }
 
   componentWillMount () {
@@ -95,9 +96,11 @@ class Login extends Component {
     /* Also need password length rule */
   }
 
-  handleLoginButtonPress () {
+  handleLoginWithEmailButtonPress () {
     //
-
+    const { loginWithEmail } = this.props
+    const { email, password } = this.state
+    loginWithEmail(email, password)
   }
 
   handleTextBoxChange = (event) => {
@@ -134,7 +137,7 @@ class Login extends Component {
             <Grid item xs={11}>
               <Paper
                 style={paperStyle}
-                zDepth={3}>
+                elevation={3}>
                 {/* Paper with text boxes inside it, email, password,
                 then social login buttons */}
                 <TextField
@@ -153,24 +156,24 @@ class Login extends Component {
                   name='password'
                   className={classes.textField}
                   value={this.state.password}
-                  onChange={this.handleTextBoxChange} 
+                  onChange={this.handleTextBoxChange}
                   margin='normal'
                 />
                 <br />
 
                 {/* Add in the buttons from cabcheap native app directly
                 I Believe there is also a button for email */}
-                <Button variant='contained' color='green' className={classes.button}>
+                <Button onClick={this.handleLoginWithEmailButtonPress} variant='contained' className={classes.button}>
                   <EmailIcon className={classes.leftIcon} style={{ color: 'green' }} />
                   Login with Email
                 </Button>
                 <br />
-                <Button variant='contained' color='blue' className={classes.button}>
+                <Button variant='contained' className={classes.button}>
                   <FacebookIcon className={classes.leftIcon} style={{ color: 'blue' }} />
                   Login with Facebook
                 </Button>
                 <br />
-                <Button variant='contained' color='red' className={classes.button}>
+                <Button variant='contained' className={classes.button}>
                   <GooglePlusIcon className={classes.leftIcon} style={{ color: 'red' }} />
                   Login with Google +
                 </Button>
