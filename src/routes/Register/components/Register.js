@@ -83,13 +83,25 @@ class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      email : '',
-      password : '',
-      correctPassword : false,
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      successFirstName: false, 
+      errorFirstName: false,
+      successLastName: false,
+      errorLastName: false,
+      successEmail: false,
+      errorEmail: false,
+      successPassword: false,
+      errorPassword: false,
+      successConfirmPassword: false,
+      errorConfirmPassword: false
     }
     console.log('Props: ', props)
     console.log('this : ', this)
-    this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
+    this.handleRegisterButtonPress = this.handleRegisterButtonPress.bind(this)
   }
 
   componentWillMount () {
@@ -99,11 +111,12 @@ class Login extends Component {
     /* Also need password length rule */
   }
 
-  handleLoginWithEmailButtonPress () {
+  handleRegisterButtonPress () {
     //
-    const { loginWithEmail } = this.props
-    const { email, password } = this.state
-    loginWithEmail(email, password)
+    const { register } = this.props
+    const { firstName, lastName, email, password } = this.state
+    let user = { firstName, lastName, email, password } 
+    register(user)
   }
 
   handleTextBoxChange = (event) => {
@@ -130,10 +143,10 @@ class Login extends Component {
   } */
 
   render () {
-    const { classes, fetching } = this.props
+    const { classes, fetching = false } = this.props
     return (
       <Grid container justify='center'>
-        <TitleBar message='Login' />
+        <TitleBar message='Register' />
         {/* Build new form */}
         <Grid item xs={12} sm={9} md={5} lg={5} xl={5}>
           <Grid container style={styles.root} justify='center' spacing={0}>
@@ -143,6 +156,24 @@ class Login extends Component {
                 elevation={3}>
                 {/* Paper with text boxes inside it, email, password,
                 then social login buttons */}
+                <TextField
+                  id='firstName'
+                  label='First Name'
+                  className={classes.textField}
+                  value={this.state.name}
+                  name='firstName'
+                  onChange={this.handleTextBoxChange}
+                  margin='normal'
+                />
+                <TextField
+                  id='lastName'
+                  label='Last Name'
+                  className={classes.textField}
+                  value={this.state.name}
+                  name='lastName'
+                  onChange={this.handleTextBoxChange}
+                  margin='normal'
+                />
                 <TextField
                   id='email'
                   label='Email'
@@ -162,23 +193,22 @@ class Login extends Component {
                   onChange={this.handleTextBoxChange}
                   margin='normal'
                 />
+                <TextField
+                  id='confirmPassword'
+                  label='Confirm Password'
+                  name='confirmPassword'
+                  className={classes.textField}
+                  value={this.state.confirmPassword}
+                  onChange={this.handleTextBoxChange}
+                  margin='normal'
+                />
                 <br />
 
                 {/* Add in the buttons from cabcheap native app directly
                 I Believe there is also a button for email */}
-                <Button onClick={this.handleLoginWithEmailButtonPress} variant='contained' className={classes.button}>
+                <Button onClick={this.handleRegisterButtonPress} variant='contained' className={classes.button}>
                   <EmailIcon className={classes.leftIcon} style={{ color: 'green' }} />
-                  Login with Email
-                </Button>
-                <br />
-                <Button variant='contained' className={classes.button}>
-                  <FacebookIcon className={classes.leftIcon} style={{ color: 'blue' }} />
-                  Login with Facebook
-                </Button>
-                <br />
-                <Button variant='contained' className={classes.button}>
-                  <GooglePlusIcon className={classes.leftIcon} style={{ color: 'red' }} />
-                  Login with Google +
+                  Register with Email
                 </Button>
                 <br />
                 <Fade
@@ -199,9 +229,9 @@ class Login extends Component {
   }
 }
 Login.propTypes = {
-  loginWithEmail: PropTypes.func.isRequired,
-  errors : PropTypes.arrayOf(PropTypes.string),
+  register: PropTypes.func.isRequired,
   fetching : PropTypes.bool,
+  errors : PropTypes.arrayOf(PropTypes.string),
   classes: PropTypes.object.isRequired,
 }
 
