@@ -23,16 +23,16 @@ export const didLogIn = store => next => action => {
       decoded id token. sub :  ${decodedToken.sub}
     `)
     let getUserInfo = request({
-      headers : { 'Content-Type': 'application/json' },
+      headers : { 'Accept': 'application/json' },
       method : 'get',
-      url: `/api/userinfo/${decodedToken.sub}`,
+      url: `/api/users/${decodedToken.sub}`,
     })
     getUserInfo.then((user) => {
       console.log(`Did Log In ____________
       user object :  ${JSON.stringify(user)}
       `)
       action.payload.user = user
-      browserHistory.push('/welcome')
+      browserHistory.push('/')
       // somehwo this interrupts the fullfilled
       next(action)
     })
