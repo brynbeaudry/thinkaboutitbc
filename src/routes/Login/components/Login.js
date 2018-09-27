@@ -12,7 +12,8 @@ import TitleBar from '../../../layouts/PageLayout/components/TitleBar'
 import { compose } from 'recompose'
 import Fade from '@material-ui/core/Fade'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
+import FacebookLogin from 'react-facebook-login'
+import GoogleLogin from 'react-google-login'
 
 /* The Register Form */
 /*
@@ -89,7 +90,7 @@ class Login extends Component {
     }
     console.log('Props: ', props)
     console.log('this : ', this)
-    this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
+    // this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
   }
 
   componentWillMount () {
@@ -109,6 +110,14 @@ class Login extends Component {
   handleTextBoxChange = (event) => {
     const { name, value } = event.target
     this.setState({ [name] : value })
+  }
+
+  responseFacebook = (response) => {
+    console.log(`Response from facebook : ${JSON.stringify(response)}`)
+  }
+
+  responseGoogle = (response) => {
+    console.log(`Response from google : ${response}`)
   }
 
   /* You should take a look at the cabcheap logic for validating and submitting the form.
@@ -171,6 +180,23 @@ class Login extends Component {
                   Login with Email
                 </Button>
                 <br />
+                <FacebookLogin
+                  appId='311905222724198'
+                  autoload={true}
+                  fields='name,email,picture'
+                  onClick={() => (console.log('facebook btn clicked'))}
+                  callback={this.responseFacebook}
+                />
+                <br />
+                <GoogleLogin
+                  clientId='480833399046-qjfj5vncfrtq59t2altl0utla7ta77kt.apps.googleusercontent.com'
+                  buttonText='LOGIN WITH GOOGLE'
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseGoogle}
+                />
+                <br />
+                {/*
+                Unfortunately going to be using a library instead
                 <Button variant='contained' className={classes.button}>
                   <FacebookIcon className={classes.leftIcon} style={{ color: 'blue' }} />
                   Login with Facebook
@@ -180,7 +206,7 @@ class Login extends Component {
                   <GooglePlusIcon className={classes.leftIcon} style={{ color: 'red' }} />
                   Login with Google +
                 </Button>
-                <br />
+                <br /> */}
                 <Fade
                   in={fetching}
                   style={{
