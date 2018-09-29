@@ -108,14 +108,26 @@ class Login extends Component {
       name: profile.getName(),
       userImageUrl: profile.getImageUrl()
     }
-    this.setState({
-      user: user
+  }
+
+  initAuth2 () {
+    window.app.gapiPromise.then(() => {
+      console.log(gapi)
+      gapi.load('auth2', () => {
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+        console.log(this)
+        gapi.auth2 = gapi.auth2.init({
+          client_id: '480833399046-qjfj5vncfrtq59t2altl0utla7ta77kt.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin'
+        })
+        gapi.auth2.attachClickHandler(document.getElementById('googleLoginButton'), {}, this.responseGoogle, this.responseGoogle)
+      })
     })
   }
 
   componentDidMount () {
     console.log('in component did mount, calling init auth2')
-    window.initAuth2()
+    this.initAuth2()
   }
 
   handleLoginWithEmailButtonPress () {
