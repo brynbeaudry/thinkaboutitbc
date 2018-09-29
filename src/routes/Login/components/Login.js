@@ -100,6 +100,24 @@ class Login extends Component {
     /* Also need password length rule */
   }
 
+  onSignIn (googleUser) {
+    console.log(JSON.stringify(googleUser))
+    let profile = googleUser.getBasicProfile()
+    const user = {
+      email: profile.getEmail(),
+      name: profile.getName(),
+      userImageUrl: profile.getImageUrl()
+    }
+    this.setState({
+      user: user
+    })
+  }
+
+  componentDidMount () {
+    console.log('in component did mount, calling init auth2')
+    window.initAuth2()
+  }
+
   handleLoginWithEmailButtonPress () {
     //
     const { loginWithEmail } = this.props
@@ -117,7 +135,7 @@ class Login extends Component {
   }
 
   responseGoogle = (response) => {
-    console.log(`Response from google : ${response}`)
+    console.log(`Response from google : ${JSON.stringify(response)}`)
   }
 
   /* You should take a look at the cabcheap logic for validating and submitting the form.
@@ -180,33 +198,24 @@ class Login extends Component {
                   Login with Email
                 </Button>
                 <br />
-                <FacebookLogin
-                  appId='311905222724198'
-                  autoload={true}
-                  fields='name,email,picture'
-                  onClick={() => (console.log('facebook btn clicked'))}
-                  callback={this.responseFacebook}
-                />
-                <br />
-                <GoogleLogin
-                  clientId='480833399046-qjfj5vncfrtq59t2altl0utla7ta77kt.apps.googleusercontent.com'
-                  buttonText='LOGIN WITH GOOGLE'
-                  onSuccess={this.responseGoogle}
-                  onFailure={this.responseGoogle}
-                />
-                <br />
-                {/*
-                Unfortunately going to be using a library instead
-                <Button variant='contained' className={classes.button}>
+                <Button
+                  id='facebookLoginButton'
+                  variant='contained'
+                  className={classes.button}
+                >
                   <FacebookIcon className={classes.leftIcon} style={{ color: 'blue' }} />
                   Login with Facebook
                 </Button>
                 <br />
-                <Button variant='contained' className={classes.button}>
+                <Button
+                  id='googleLoginButton'
+                  variant='contained'
+                  className={classes.button}
+                >
                   <GooglePlusIcon className={classes.leftIcon} style={{ color: 'red' }} />
                   Login with Google +
                 </Button>
-                <br /> */}
+                <br />
                 <Fade
                   in={fetching}
                   style={{

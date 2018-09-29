@@ -4,6 +4,55 @@
   <title>Think About IT BC</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    var gapiPromise = (function(){
+      return new Promise(function(resolve, reject) {
+        window.onLoadCallback = function(){
+            resolve();
+        };
+      });
+    }());
+    window.app = window.app || {};
+    window.app.gapiPromise = gapiPromise;
+
+    function initAuth2 () {
+      window.app.gapiPromise.then(() => {
+        console.log(gapi)
+        gapi.load('auth2', () => {
+              // Retrieve the singleton for the GoogleAuth library and set up the client.
+          console.log(this)
+          gapi.auth2 = gapi.auth2.init({
+            client_id: '480833399046-qjfj5vncfrtq59t2altl0utla7ta77kt.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin'
+          })
+          gapi.auth2.attachClickHandler(document.getElementById('googleLoginButton'))
+        })
+      })
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1813842465324998',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v2.11'
+      });
+
+      // Broadcast an event when FB object is ready
+      var fbInitEvent = new Event('FBObjectReady');
+      document.dispatchEvent(fbInitEvent);
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
 </head>
 <body>
   <div id="root" style="height: 100%"></div>
