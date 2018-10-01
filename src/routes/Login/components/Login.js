@@ -93,14 +93,59 @@ class Login extends Component {
     // this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
   }
 
-  componentWillMount () {
+  componentWillUnmount () {
     // custom rule will have name 'isPasswordMatch'
     /* ValidatorForm.addValidationRule('isPasswordMatch', (value) =>
       this.state.user.password === this.state.password_confirm) */
     /* Also need password length rule */
+    document.removeEventListener('FBObjectReady', this.initializeFacebookLogin)
   }
 
-  onSignIn (googleUser) {
+  componentDidMount () {
+    console.log('in component did mount, calling init auth2')
+    this.initGoogleAuth()
+    document.addEventListener('FBObjectReady', this.initializeFacebookLogin)
+  }
+
+  initializeFacebookLogin = () => {
+    console.log(`In initializeFacebookLogin`)
+    this.FB = window.FB
+    this.facebookCheckLoginStatus()
+  }
+
+  facebookCheckLoginStatus = () => {
+    this.FB.getLoginStatus(this.facebookLoginHandler)
+  }
+
+  facebookLoginHandler = response => {
+    if (response.status === 'connected') {
+      this.FB.api('/me', userData => {
+        let result = {
+          ...response,
+          user: userData
+        }
+        console.log(`Facebook result : ${JSON.stringify(result)}`)
+      })
+    } else {
+      console.log('Faceook result : facebook isnt connected')
+    }
+  }
+
+  facebookLogin = () => {
+    console.log('in facebook login function')
+    console.log(`tis.FB : ${JSON.stringify(this.FB)}`)
+    if (!this.FB) return
+    this.FB.getLoginStatus(response => {
+      console.log(`${JSON.stringify(response)}`)
+      if (response.status === 'connected') {
+        this.facebookLoginHandler(response)
+      } else {
+        this.FB.login(this.facebookLoginHandler, { scope: 'public_profile' })
+      }
+    })
+  }
+
+  googleOnSignIn (googleUser) {
     console.log(JSON.stringify(googleUser))
     let profile = googleUser.getBasicProfile()
     const user = {
@@ -110,7 +155,7 @@ class Login extends Component {
     }
   }
 
-  initAuth2 () {
+  initGoogleAuth () {
     window.app.gapiPromise.then(() => {
       console.log(gapi)
       gapi.load('auth2', () => {
@@ -123,11 +168,6 @@ class Login extends Component {
         gapi.auth2.attachClickHandler(document.getElementById('googleLoginButton'), {}, this.responseGoogle, this.responseGoogle)
       })
     })
-  }
-
-  componentDidMount () {
-    console.log('in component did mount, calling init auth2')
-    this.initAuth2()
   }
 
   handleLoginWithEmailButtonPress () {
@@ -148,6 +188,13 @@ class Login extends Component {
 
   responseGoogle = (response) => {
     console.log(`Response from google : ${JSON.stringify(response)}`)
+    let profile = response.getBasicProfile()
+    const user = {
+      email: profile.getEmail(),
+      name: profile.getName(),
+      userImageUrl: profile.getImageUrl()
+    }
+    console.log(`google user : ${JSON.stringify(user)}`)
   }
 
   /* You should take a look at the cabcheap logic for validating and submitting the form.
@@ -214,6 +261,7 @@ class Login extends Component {
                   id='facebookLoginButton'
                   variant='contained'
                   className={classes.button}
+                  onClick={this.facebookLogin}
                 >
                   <FacebookIcon className={classes.leftIcon} style={{ color: 'blue' }} />
                   Login with Facebook

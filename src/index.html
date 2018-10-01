@@ -15,26 +15,14 @@
     window.app = window.app || {};
     window.app.gapiPromise = gapiPromise;
 
-    function initAuth2 () {
-      window.app.gapiPromise.then(() => {
-        console.log(gapi)
-        gapi.load('auth2', () => {
-              // Retrieve the singleton for the GoogleAuth library and set up the client.
-          console.log(this)
-          gapi.auth2 = gapi.auth2.init({
-            client_id: '480833399046-qjfj5vncfrtq59t2altl0utla7ta77kt.apps.googleusercontent.com',
-            cookiepolicy: 'single_host_origin'
-          })
-          gapi.auth2.attachClickHandler(document.getElementById('googleLoginButton'))
-        })
-      })
-    }
   </script>
   <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
   <script>
+    // I don't think we wanna keep the client id on the window
     window.fbAsyncInit = function () {
+      console.log('calling fb init on window')
       FB.init({
-        appId: '1813842465324998',
+        appId: '311905222724198',
         autoLogAppEvents: true,
         xfbml: true,
         version: 'v2.11'

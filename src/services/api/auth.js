@@ -33,8 +33,8 @@ function loginWithEmail (email, password) {
   })
 }
 
-async function loginWithFacebook () {
-  const facebook_access_token = getFacebookToken()
+async function loginWithFacebook (facebookAccessToken) {
+  console.log(`facebook acces token : ${facebookAccessToken}`)
   return request({
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     url: '/connect/token',
@@ -43,12 +43,13 @@ async function loginWithFacebook () {
       response_type: 'code',
       grant_type: 'urn:ietf:params:oauth:grant-type:facebook_access_token',
       scope: 'openid profile email',
-      assertion: facebook_access_token,
+      assertion: facebookAccessToken,
     })
   })
 }
 
-function loginWithGoogle (google_identity_token) {
+function loginWithGoogle (googleIdentityToken) {
+  console.log(`google identity token : ${googleIdentityToken}`)
   return request({
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     url: '/connect/token',
@@ -57,7 +58,7 @@ function loginWithGoogle (google_identity_token) {
       response_type: 'code',
       grant_type: 'urn:ietf:params:oauth:grant-type:google_identity_token',
       scope: 'openid profile email',
-      assertion: google_identity_token,
+      assertion: googleIdentityToken,
     })
   })
 }
