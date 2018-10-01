@@ -49,7 +49,7 @@ const ImageJumbotron = (props) => {
   return (
     <Grid item xs={12}>
       <Card className={classes.card}>
-        <CardMedia className={classes.media} image='http://localhost:5000/static/images/bc3.jpg' title='Contemplative Reptile'>
+        <CardMedia className={classes.media} image='https://localhost:5000/static/images/bc3.jpg' title='Contemplative Reptile'>
           <Typography paragraph className={classes.text} variant='display4' color='primary'>
             Think about IT
           </Typography>
