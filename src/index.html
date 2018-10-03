@@ -19,6 +19,14 @@
   <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
   <script>
     // I don't think we wanna keep the client id on the window
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    
     window.fbAsyncInit = function () {
       console.log('calling fb init on window')
       FB.init({
@@ -30,16 +38,9 @@
 
       // Broadcast an event when FB object is ready
       var fbInitEvent = new Event('FBObjectReady');
+      console.log('event dispatched?')
       document.dispatchEvent(fbInitEvent);
     };
-
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
   </script>
 </head>
 <body>

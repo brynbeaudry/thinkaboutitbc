@@ -15,7 +15,7 @@ export const LOGIN_USER_EMAIL = 'LOGIN_USER_EMAIL'
 export const LOGIN_USER_EMAIL_PENDING = 'LOGIN_USER_EMAIL_PENDING'
 export const LOGIN_USER_EMAIL_REJECTED = 'LOGIN_USER_EMAIL_REJECTED'
 export const LOGIN_USER_EMAIL_FULFILLED = 'LOGIN_USER_EMAIL_FULFILLED'
-export const LOGIN_USER_FACEBOOK = 'LOGIN_USER'
+export const LOGIN_USER_FACEBOOK = 'LOGIN_USER_FACEBOOK'
 export const LOGIN_USER_FACEBOOK_PENDING = 'LOGIN_USER_FACEBOOK_PENDING'
 export const LOGIN_USER_FACEBOOK_REJECTED = 'LOGIN_USER_FACEBOOK_REJECTED'
 export const LOGIN_USER_FACEBOOK_FULFILLED = 'LOGIN_USER_FACEBOOK_FULFILLED'
@@ -49,20 +49,20 @@ export function loginWithEmail (email, password) {
   }
 }
 
-export function loginWithFacebook () {
+export function loginWithFacebook (accessToken) {
   return {
     type    : LOGIN_USER_FACEBOOK,
     payload : {
-      promise: AuthService.loginWithFacebook()
+      promise: AuthService.loginWithFacebook(accessToken)
     },
   }
 }
 
-export function loginWithGoogle () {
+export function loginWithGoogle (googleIdentityToken) {
   return {
     type    : LOGIN_USER_GOOGLE,
     payload : {
-      promise: AuthService.loginWithGoogle(user)
+      promise: AuthService.loginWithGoogle(googleIdentityToken)
     },
   }
 }

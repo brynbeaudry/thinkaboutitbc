@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const client = axios.create({
   baseURL: 'https://api.thinkaboutitbc.ca',
+  // baseURL: 'https://localhost:3080',
   headers : { 'Content-Type' : 'application/json' },
 })
 

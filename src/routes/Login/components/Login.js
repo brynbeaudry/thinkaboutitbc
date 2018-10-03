@@ -109,8 +109,8 @@ class Login extends Component {
 
   initializeFacebookLogin = () => {
     console.log(`In initializeFacebookLogin`)
-    this.FB = window.FB
-    this.facebookCheckLoginStatus()
+    // this.FB = window.FB
+    // this.facebookCheckLoginStatus()
   }
 
   facebookCheckLoginStatus = () => {
@@ -118,14 +118,12 @@ class Login extends Component {
   }
 
   facebookLoginHandler = response => {
+    const { loginWithFacebook } = this.props
     if (response.status === 'connected') {
-      this.FB.api('/me', userData => {
-        let result = {
-          ...response,
-          user: userData
-        }
-        console.log(`Facebook result : ${JSON.stringify(result)}`)
-      })
+        // console.log(`this props ${JSON.stringify(this.props)}`)
+      console.log(`Facebook result : ${JSON.stringify(response.authResponse)}`)
+      const { accessToken } = response.authResponse
+      loginWithFacebook(accessToken)
     } else {
       console.log('Faceook result : facebook isnt connected')
     }
@@ -133,14 +131,15 @@ class Login extends Component {
 
   facebookLogin = () => {
     console.log('in facebook login function')
-    console.log(`tis.FB : ${JSON.stringify(this.FB)}`)
-    if (!this.FB) return
+    if (!window.FB) return
+    this.FB = window.FB
+    // console.log(`tis.FB : ${JSON.stringify(this.FB)}`)
+
     this.FB.getLoginStatus(response => {
-      console.log(`${JSON.stringify(response)}`)
       if (response.status === 'connected') {
         this.facebookLoginHandler(response)
       } else {
-        this.FB.login(this.facebookLoginHandler, { scope: 'public_profile' })
+        this.FB.login(this.facebookLoginHandler, { scope: 'email,public_profile' })
       }
     })
   }
@@ -180,10 +179,6 @@ class Login extends Component {
   handleTextBoxChange = (event) => {
     const { name, value } = event.target
     this.setState({ [name] : value })
-  }
-
-  responseFacebook = (response) => {
-    console.log(`Response from facebook : ${JSON.stringify(response)}`)
   }
 
   responseGoogle = (response) => {
@@ -295,6 +290,8 @@ class Login extends Component {
 }
 Login.propTypes = {
   loginWithEmail: PropTypes.func.isRequired,
+  loginWithFacebook : PropTypes.func.isRequired,
+  loginWithGoogle : PropTypes.func.isRequired,
   errors : PropTypes.arrayOf(PropTypes.string),
   fetching : PropTypes.bool,
   classes: PropTypes.object.isRequired,

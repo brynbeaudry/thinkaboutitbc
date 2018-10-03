@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loginWithEmail } from '../../../services/modules/auth'
+import { loginWithEmail, loginWithFacebook, loginWithGoogle } from '../../../services/modules/auth'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -14,6 +14,8 @@ import Login from '../components/Login'
 
 const mapDispatchToProps = {
   loginWithEmail,
+  loginWithFacebook,
+  loginWithGoogle,
 }
 
 const mapStateToProps = (state) => ({
