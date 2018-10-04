@@ -182,6 +182,7 @@ class Login extends Component {
   }
 
   responseGoogle = (response) => {
+    const { loginWithGoogle } = this.props
     console.log(`Response from google : ${JSON.stringify(response)}`)
     let profile = response.getBasicProfile()
     const user = {
@@ -189,7 +190,9 @@ class Login extends Component {
       name: profile.getName(),
       userImageUrl: profile.getImageUrl()
     }
+    let idToken = response.getAuthResponse().id_token
     console.log(`google user : ${JSON.stringify(user)}`)
+    loginWithGoogle(idToken)
   }
 
   /* You should take a look at the cabcheap logic for validating and submitting the form.
