@@ -58,11 +58,11 @@ export function loginWithFacebook (accessToken) {
   }
 }
 
-export function loginWithGoogle (googleIdentityToken) {
+export function loginWithGoogle (googleAccessToken) {
   return {
     type    : LOGIN_USER_GOOGLE,
     payload : {
-      promise: AuthService.loginWithGoogle(googleIdentityToken)
+      promise: AuthService.loginWithGoogle(googleAccessToken)
     },
   }
 }
@@ -101,7 +101,7 @@ const ACTION_HANDLERS = {
   },
   [REGISTER_USER_REJECTED] : (state, action) => {
     return ({ ...state,
-      error: action.payload.data.errors[0],
+      error: action.payload.data,
       fetching : false,
     })
   },
@@ -120,7 +120,7 @@ const ACTION_HANDLERS = {
   },
   [LOGIN_USER_EMAIL_REJECTED] : (state, action) => {
     return ({ ...state,
-      error: action.payload.data.errors[0],
+      error: action.payload.data,
       fetching : false,
       isLoggedIn: false,
     })
@@ -142,20 +142,42 @@ const ACTION_HANDLERS = {
   },
   [LOGIN_USER_FACEBOOK_REJECTED] : (state, action) => {
     return ({ ...state,
-      error: action.payload,
+      error: action.payload.data,
       fetching : false,
       isLoggedIn: false,
     })
   },
   [LOGIN_USER_FACEBOOK_FULFILLED] : (state, action) => {
     return ({ ...state,
-      isLoggedIn : true, 
+      isLoggedIn : true,
       ...action.payload,
       error: undefined,
       fetching : false,
     })
   },
-  // TODO: need to add logout, and google
+  [LOGIN_USER_GOOGLE_PENDING]  : (state, action) => {
+    return ({ ...state,
+      error: undefined,
+      fetching : true,
+      isLoggedIn: false,
+    })
+  },
+  [LOGIN_USER_GOOGLE_REJECTED] : (state, action) => {
+    return ({ ...state,
+      error: action.payload.data,
+      fetching : false,
+      isLoggedIn: false,
+    })
+  },
+  [LOGIN_USER_GOOGLE_FULFILLED] : (state, action) => {
+    return ({ ...state,
+      isLoggedIn : true,
+      ...action.payload,
+      error: undefined,
+      fetching : false,
+    })
+  },
+  // TODO: need to add logout
 }
 
 // ------------------------------------

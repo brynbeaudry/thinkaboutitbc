@@ -13,11 +13,11 @@ export const createRoutes = (store) => {
   const requireLogin = (nextState, replace, cb) => {
     const state = { ...store.getState() }
     if (state.auth === undefined) {
-      replace('/')
+      replace('/login')
     } else {
       const { auth: { user } } = state
       if (!user) {
-        replace('/')
+        replace('/login')
       }
     }
     cb()
@@ -28,7 +28,7 @@ export const createRoutes = (store) => {
     if (state.auth !== undefined) {
       const { auth: { user } } = state
       if (user) {
-        replace('home')
+        replace('/')
       }
     }
     cb()

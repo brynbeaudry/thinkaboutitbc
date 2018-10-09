@@ -48,17 +48,17 @@ async function loginWithFacebook (facebookAccessToken) {
   })
 }
 
-function loginWithGoogle (googleIdentityToken) {
-  console.log(`google identity token : ${googleIdentityToken}`)
+function loginWithGoogle (googleAccessToken) {
+  console.log(`google access token : ${googleAccessToken}`)
   return request({
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     url: '/connect/token',
     method: 'POST',
     data: querystring.stringify({
       response_type: 'code',
-      grant_type: 'urn:ietf:params:oauth:grant-type:google_identity_token',
-      scope: 'openid profile email',
-      assertion: googleIdentityToken,
+      grant_type: 'urn:ietf:params:oauth:grant-type:google_access_token',
+      scope: 'openid profile email https://www.googleapis.com/auth/userinfo.email',
+      assertion: googleAccessToken,
     })
   })
 }

@@ -2,9 +2,10 @@ import { browserHistory } from 'react-router'
 import { updateLocation, locationChange } from '../store/location'
 import { decodeJWT } from '../util/base64'
 import request from '../services/request'
+import { LOGIN_USER_GOOGLE_FULFILLED } from '../services/modules/auth';
 
 export const didLogIn = store => next => action => {
-  if (action.type === 'LOGIN_USER_EMAIL_FULFILLED') {
+  if (action.type === 'LOGIN_USER_EMAIL_FULFILLED' || action.type === 'LOGIN_USER_FACEBOOK_FULFILLED' || action.type === 'LOGIN_USER_GOOGLE_FULFILLED') {
     next(action)
     console.log(`Did Log In ____________
       store : _____ ${store}

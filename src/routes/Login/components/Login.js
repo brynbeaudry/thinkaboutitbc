@@ -90,7 +90,7 @@ class Login extends Component {
     }
     console.log('Props: ', props)
     console.log('this : ', this)
-    // this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
+    this.handleLoginWithEmailButtonPress = this.handleLoginWithEmailButtonPress.bind(this)
   }
 
   componentWillUnmount () {
@@ -190,9 +190,9 @@ class Login extends Component {
       name: profile.getName(),
       userImageUrl: profile.getImageUrl()
     }
-    let idToken = response.getAuthResponse().id_token
-    console.log(`google user : ${JSON.stringify(user)}`)
-    loginWithGoogle(idToken)
+    let accessToken = response.getAuthResponse(true).access_token
+    console.log(`google access token : ${JSON.stringify(accessToken)}`)
+    loginWithGoogle(accessToken)
   }
 
   /* You should take a look at the cabcheap logic for validating and submitting the form.
