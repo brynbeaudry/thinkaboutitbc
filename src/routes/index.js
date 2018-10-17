@@ -5,6 +5,7 @@ import CounterRoute from './Counter'
 import LoginRoute from './Login'
 import HomeRoute from './Home'
 import RegisterRoute from './Register'
+import LogoutRoute from './Logout'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -12,7 +13,7 @@ import RegisterRoute from './Register'
 export const createRoutes = (store) => {
   const requireLogin = (nextState, replace, cb) => {
     const state = { ...store.getState() }
-    if (state.auth === undefined) {
+    if (state.auth === undefined || state.auth.isLoggedIn === false ) {
       replace('/login')
     } else {
       const { auth: { user } } = state
@@ -51,6 +52,7 @@ export const createRoutes = (store) => {
         onEnter: requireLogin,
         childRoutes: [
           HomeRoute(store),
+          LogoutRoute(store)
         ]
       },
     ]

@@ -1,16 +1,16 @@
 import request from '../request'
 import querystring from 'query-string'
 
-// get facebook from somewhere
-
-function getFacebookToken () {
-  // something
-}
-
 function register (user) {
   let username = user.userName !== undefined ? user.userName : `${user.email.split('@')[0]}`
   console.log('auth api in register: ', `${user} \n Username ${username}`)
-  let data = { email: user.email, password: user.password, userName: username, firstName : user.firstName, lastName : user.lastName }
+  let data = {
+    email: user.email,
+    password: user.password,
+    userName: username,
+    firstName : user.firstName,
+    lastName : user.lastName
+  }
   return request({
     headers : { 'Content-Type': 'application/json' },
     method : 'post',
@@ -63,10 +63,11 @@ function loginWithGoogle (googleAccessToken) {
   })
 }
 
-function logout () {
+function logout (accessToken, userId) {
   return request({
-    url: '/logout',
-    method: 'POST'
+    headers : {'Authorization': `Bearer ${accessToken}`},
+    url: `/api/logout/${userId}`,
+    method : 'GET'
   })
 }
 

@@ -69,13 +69,14 @@ class RightNavButtons extends Component {
 
   render () {
     const { classes, auth } = this.props
+    const userFullName = auth.user ? auth.user.fullName : ''
 
     const navMenuList = (
       <div className={classes.list}>
         <List>
-          {menuItems.map(x => {
+          {menuItems.map(( x, i ) => {
             return (
-              <ListItem component={props => <Link {...props} to={x.href} />} button>
+              <ListItem button key={i} component={props => <Link {...props} to={x.href} />}>
                 <ListItemIcon>
                   {x.icon}
                 </ListItemIcon>
@@ -102,8 +103,9 @@ class RightNavButtons extends Component {
 
     const authorizedButtons = (
       <div>
+        <span>Welcome, {userFullName}</span>
         <IconButton
-          onClick={this.toggleDrawer('left', true)}
+          onClick={this.toggleDrawer(true)}
           className={classes.button}
           aria-label='Menu'
         >

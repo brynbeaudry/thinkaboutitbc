@@ -23,6 +23,10 @@ export const LOGIN_USER_GOOGLE = 'LOGIN_USER_GOOGLE'
 export const LOGIN_USER_GOOGLE_PENDING = 'LOGIN_USER_GOOGLE_PENDING'
 export const LOGIN_USER_GOOGLE_REJECTED = 'LOGIN_USER_GOOGLE_REJECTED'
 export const LOGIN_USER_GOOGLE_FULFILLED = 'LOGIN_USER_GOOGLE_FULFILLED'
+export const LOGOUT_USER = 'LOGOUT_USER'
+export const LOGOUT_USER_PENDING = 'LOGOUT_USER_PENDING'
+export const LOGOUT_USER_REJECTED = 'LOGOUT_USER_REJECTED'
+export const LOGOUT_USER_FULFILLED = 'LOGOUT_USER_FULFILLED'
 
 // ------------------------------------
 // Actions
@@ -67,6 +71,15 @@ export function loginWithGoogle (googleAccessToken) {
   }
 }
 
+export function logout (accessToken, userId) {
+  return {
+    type    : LOGOUT_USER,
+    payload : {
+      promise: AuthService.logout(accessToken, userId)
+    },
+  }
+}
+
 /*  This is a thunk, meaning it is a function that immediately
     returns a function for lazy evaluation. It is incredibly useful for
     creating async actions, especially when combined with redux-thunk! */
@@ -86,7 +99,7 @@ export const doubleAsync = () => {
 }
 */
 export const actions = {
-  register, loginWithEmail, loginWithGoogle, loginWithFacebook
+  register, loginWithEmail, loginWithGoogle, loginWithFacebook, logout
 }
 
 // ------------------------------------
@@ -177,7 +190,25 @@ const ACTION_HANDLERS = {
       fetching : false,
     })
   },
-  // TODO: need to add logout
+  [LOGOUT_USER_PENDING]: (state, action) => {
+    return ({ ...state,
+      error: undefined,
+      fetching : true,
+    })
+  },
+  [LOGOUT_USER_REJECTED]: (state, action) => {
+    return ({ ...state,
+      error: action.payload,
+      fetching : false,
+    })
+  },
+  [LOGOUT_USER_FULFILLED]: (state, action) => {
+    return ({ ...action.payload,
+      error: undefined,
+      fetching : false,
+      isLoggedIn: false,
+    })
+  },
 }
 
 // ------------------------------------

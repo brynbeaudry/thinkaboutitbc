@@ -155,6 +155,7 @@ class Login extends Component {
   }
 
   initGoogleAuth () {
+    console.log('in init google auth')
     window.app.gapiPromise.then(() => {
       console.log(gapi)
       gapi.load('auth2', () => {

@@ -7,13 +7,14 @@ import logger from 'redux-logger'
 import promiseMiddleware from 'redux-promise-middleware'
 import didLogin from '../middleware/didLogin'
 import didRegister from '../middleware/didRegister'
+import didLogout from '../middleware/didLogout'
 import { save, load } from 'redux-localstorage-simple'
 
 const createStore = (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk, promiseMiddleware(), save(['auth'], 'taitbc', 500), didLogin, didRegister, logger]
+  const middleware = [thunk, promiseMiddleware(), save(['auth'], 'taitbc', 500), didLogin, didRegister, didLogout, logger]
 
   // ======================================================
   // Store Enhancers
